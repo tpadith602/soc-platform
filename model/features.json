@@ -1,0 +1,18 @@
+{
+  "features": [
+    "destination_port",
+    "duration",
+    "packet_count",
+    "byte_count",
+    "connection_rate"
+  ],
+  "classes": [
+    "BENIGN",
+    "FTP-Patator",
+    "PortScan",
+    "SSH-Patator"
+  ],
+  "accuracy": 0.9838550247116968,
+  "training_time": 0.45358753204345703,
+  "model_type": "RandomForestClassifier"
+}

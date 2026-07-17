@@ -1,0 +1,29 @@
+[Unit]
+Description=SOC Platform - Unified Service
+After=network.target
+
+[Service]
+Type=simple
+User=project
+Group=project
+WorkingDirectory=/home/project/soc-platform
+Environment="PATH=/home/project/soc-platform/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+# Optional overrides (see config/settings.py):
+# Environment="SOC_FLASK_HOST=0.0.0.0"
+# Environment="SOC_API_KEY=replace-with-a-long-random-string"
+ExecStart=/home/project/soc-platform/venv/bin/python /home/project/soc-platform/daemon/launcher.py
+ExecStop=/bin/kill -SIGTERM $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=soc-platform
+
+# FIX (defense-in-depth, optional but recommended): the 'project' user
+# needs read access to /var/log/auth.log for the SSH brute-force monitor.
+# Add it to the 'adm' group instead of running the whole service as root:
+#   sudo usermod -aG adm project
+
+[Install]
+WantedBy=multi-user.target
